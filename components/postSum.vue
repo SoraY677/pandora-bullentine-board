@@ -1,7 +1,7 @@
 <template>
   <b-card class="bg-primary text-center">
     <p class="text-white">
-      投稿
+      投稿： 計
       <span class="sum-num">{{sum}}</span>
       件
     </p>
