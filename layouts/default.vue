@@ -31,8 +31,35 @@ html {
   margin: 0;
 }
 
+main{
+  width:80%;
+  margin:0 auto;
+  padding-top:20px
+}
+
 ul{
   list-style: none;
+  margin:0;
+  padding:0;
+}
+
+p{
+  margin:0;
+  padding:0;
+}
+
+.flex-center{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.divide-line{
+  width:80%;
+  padding:3px 0;
+  margin:0 auto;
+  border-bottom:1px solid #dedede;
+  
 }
 
 
