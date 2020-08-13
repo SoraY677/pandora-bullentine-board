@@ -34,13 +34,16 @@ html {
 main{
   width:80%;
   margin:0 auto;
-  padding-top:20px
 }
 
 ul{
   list-style: none;
   margin:0;
   padding:0;
+}
+
+h1{
+  margin:0;
 }
 
 p{
@@ -59,7 +62,14 @@ p{
   padding:3px 0;
   margin:0 auto;
   border-bottom:1px solid #dedede;
-  
+}
+
+.strong-font{
+  font-size:1.8em;
+}
+
+.block{
+  display:block;
 }
 
 

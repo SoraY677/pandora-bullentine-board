@@ -4,7 +4,7 @@
    <postsum :sum="200"/>
    </div>
    <ul class="mypost-container mx-auto">
-     <li><mypost :username="'H.Nさん'" :postnum="20"/></li>
+     <li><mypost :username="'H.N'" :postnum="20"/></li>
    </ul>
  </div>
 </template>

@@ -29,7 +29,7 @@ require("chart.js")
 
 export default {
   props: {
-    postnum: String,
+    postnum: Number,
     username: String
   },
   mounted() {
