@@ -1,12 +1,12 @@
 <template>
- <div>
+ <main>
    <div class="post-sum-container mx-auto py-3">
    <postsum :sum="200"/>
    </div>
    <ul class="mypost-container mx-auto">
      <li><mypost :username="'H.N'" :postnum="20"/></li>
    </ul>
- </div>
+ </main>
 </template>
 
 <script>

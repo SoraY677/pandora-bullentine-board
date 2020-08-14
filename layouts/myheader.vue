@@ -6,7 +6,6 @@
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
-          
         </div>
         <span class="menu-sub">menu</span>
       </b-button>
@@ -14,11 +13,12 @@
       <b-sidebar class="slide-bar-container" id="slide_bar" backdrop shadow>
         <slidebar />
       </b-sidebar>
+      <b-btn class="float-right my-1 mx-2" variant="primary">?</b-btn>
       <div class="search-box-container">
         <searchbox class="float-right" />
       </div>
+      
     </header>
-    <div class="header-dummy"></div>
   </div>
 </template>
 
@@ -38,6 +38,8 @@ export default {
           return "ホーム";
         case "mypage":
           return "マイページ";
+        case "hot":
+          return "ホットな話題";
         default:
           return "";
       }
@@ -48,18 +50,14 @@ export default {
 
 <style>
 header.page {
-  position: fixed;
   z-index: 100;
   width: 100%;
+  height:10vh;
   padding:10px 20px;
   overflow: hidden;
   border-bottom: 1px solid #bbb;
   box-shadow: 1px 1px 1px 1px #ddd;
   background-color: var(--white);
-}
-
-.header-dummy {
-  height: 4em;
 }
 
 .block {
@@ -113,6 +111,8 @@ button:hover .menu-bar{
   float: left;
 }
 
+
+
 .page-title {
   display: inline-block;
   margin-left: 0.5em;
@@ -120,5 +120,16 @@ button:hover .menu-bar{
   align-items: center;
   font-size: 1.4em;
   border-left: 1.5px solid var(--gray);
+}
+
+.question{
+  float:right;
+  margin:5px 0 5px 5px;
+}
+
+@media screen and (min-width:900px) { 
+    .slide-bar-btn{
+      display: none;
+    }
 }
 </style>

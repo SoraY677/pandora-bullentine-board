@@ -1,8 +1,5 @@
 <template>
   <main>
-    <div class="l-sidenav">
-    <navside />
-    </div>
     <div class="post-content">
     <ul>
       <li v-for="item in contentList" :key="item.id" class="mb-1">
@@ -17,7 +14,6 @@
 import firestore from "@/plugins/firebase";
 
 import post from "@/components/otherPost";
-import navside from "@/components/sidenav"
 export default {
   async asyncData({params}){
     const db = firestore;
@@ -34,8 +30,7 @@ export default {
 
   },
   components: {
-    post,
-    navside
+    post
   }
 };
 </script>
@@ -49,7 +44,7 @@ export default {
 
 .post-content{
   float:right;
-  width:80%;
+  width:100%;
   min-height:92vh;
   background-color:var(--light);
   padding:0.3em 0.3em 0 0.3em;

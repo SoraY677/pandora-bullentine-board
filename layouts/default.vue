@@ -1,20 +1,44 @@
 <template>
   <div>
     <Myheader />
-    <nuxt />
+    <div class="content">
+    <sidelink class="float-left l-side-link"/>
+    <nuxt class="float-left l-main-content"/>
+    <sidenav class="float-right l-side-nav"/>
+    </div>
   </div>
 </template>
 
 <script>
 import Myheader from "~/layouts/myheader"
+import sidelink from "~/layouts/sidelink"
+import sidenav from "~/layouts/sidenav"
 export default {
   components:{
-    Myheader
+    Myheader,
+    sidelink,
+    sidenav
   }
 }
 </script>
 
 <style>
+
+.l-side-link{
+  width:20%;
+}
+
+.l-main-content{
+  width:60%;
+}
+
+.l-side-nav{
+  width:20%;
+}
+
+
+/* common setting */
+
 html {
   font-size: 16px;
   word-spacing: 1px;
@@ -31,9 +55,15 @@ html {
   margin: 0;
 }
 
+.content{
+  height:90vh;
+}
+
 main{
-  width:80%;
+  height:100%;
+  overflow-x: auto;
   margin:0 auto;
+  background-color:var(--light);
 }
 
 ul{
@@ -50,6 +80,12 @@ p{
   margin:0;
   padding:0;
 }
+
+a,a:hover{
+  color:#2e2e2e;
+  text-decoration: none;
+}
+
 
 .flex-center{
   display:flex;
@@ -71,6 +107,7 @@ p{
 .block{
   display:block;
 }
+
 
 
 </style>

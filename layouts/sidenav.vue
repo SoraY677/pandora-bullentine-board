@@ -6,12 +6,6 @@
           <span class="block">投稿</span>
         </button>
       </li>
-      <li class="pt-4">
-        <button class="nav-btn btn-blue bg-black">
-          <span class="strong-font block rotate-anim">🐤</span>
-          <span class="block">twitter</span>
-        </button>
-      </li>
     </ul>
 </template>
 
@@ -25,10 +19,7 @@ export default {
 
 .nav-content{
   padding:20px;
-  border: 1px solid var(--gray);
-  box-shadow: 1px 1px 1px 0px var(--gray);
   border-radius: 20px;
-  background-color:var(--white);
 }
 
 .nav-btn{
