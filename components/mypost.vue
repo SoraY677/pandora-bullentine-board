@@ -6,6 +6,8 @@
       <span class="strong-font ml-2">{{ username }}</span>
     </div>
 
+    
+
     <div class="divide-line"></div>
     <div class="text-center py-4">
       <!-- 投稿合計 -->
@@ -30,30 +32,38 @@ require("chart.js")
 export default {
   props: {
     postnum: Number,
-    username: String
+    username: String,
+    percentage:Array
   },
   mounted() {
-    var ctx = this.$refs.myChart.getContext("2d");
-    var chart = new Chart(ctx, {
+    const ctx = this.$refs.myChart.getContext("2d");
+    
+    let array = this.percentage
+    let sum = 0 
+    array.forEach(val=>{
+      sum += val
+    })
+    if(sum == 0)array = [0,0,0,0,0,1]
+
+    const chart = new Chart(ctx, {
       // The type of chart we want to create
       type: "doughnut",
 
       // The data for our dataset
       data: {
         labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
+          "🤨うーん？",
+          "🤤わかる",
+          "😅うわっ",
+          "😱やばすぎ！",
+          "🤪ｱｪｰ",
+          "データなし"
         ],
         datasets: [
           {
 
-            backgroundColor: ["rgb(255, 99, 132)","rgb(255, 120, 132)","rgb(255, 150, 132)","rgb(255, 180, 132)","rgb(255, 99, 132)","rgb(255, 99, 132),","rgb(255, 99, 132)"],
-            data: [0, 10, 5, 2, 20, 30, 45]
+            backgroundColor: ["rgb(51, 68, 222)","rgb(51, 214, 184)","rgb(209, 204, 48)","rgb(227, 87, 36)","rgb(220, 53, 69)","rgb(180,180,180)"],
+            data: array
           }
         ]
       },

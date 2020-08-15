@@ -9,12 +9,13 @@
 
           <div class="px-1 pt-1">
             <!-- リアクション -->
-            <reaction @reactionSymbol="changeReaction"/>
+            <reaction :id="id" @reactionSymbol="changeReaction"/>
             <span v-if="reactionSymbol!=''" class="reaction-symbol">{{reactionSymbol}}</span>
+            {{reactionnum}}件
             <!-- コメント -->
-            <div class="float-right">
+            <div class="float-right" v-if="commentmode===0">
               <span>コメント{{ commentnum }}件</span>
-              <b-btn variant="outline-primary">表示</b-btn>
+              <nuxt-link :to="'/post?id='+id" class="show-comment">表示</nuxt-link>
             </div>
           </div>
         </div>
@@ -44,9 +45,12 @@ export default {
     }
   },
   props: {
+    id:String,
     content: String,
     username: String,
-    commentnum: Number
+    commentnum: Number,
+    commentmode:0,
+    reactionnum:0
   },
   methods:{
     changeReaction(symbol){
@@ -79,8 +83,16 @@ export default {
   float: left;
 }
 
-
 .reaction-symbol{
   font-size:1.3em;
+}
+
+.show-comment{
+  color:var(--primary);
+  transition-duration: .3s;
+}
+
+.show-comment:hover{
+  opacity:0.5;
 }
 </style>

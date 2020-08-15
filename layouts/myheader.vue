@@ -1,14 +1,14 @@
 <template>
   <div>
     <header class="page p-10">
-      <b-button v-b-toggle.slide_bar class="slide-bar-btn p-1" squared variant="outline-primary">
+      <!-- <b-button v-b-toggle.slide_bar class="slide-bar-btn p-1" squared variant="outline-primary">
         <div class="menu-bar-container">
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
         </div>
         <span class="menu-sub">menu</span>
-      </b-button>
+      </b-button> -->
       <h1 class="page-title">{{ getPageName }}</h1>
       <b-sidebar class="slide-bar-container" id="slide_bar" backdrop shadow>
         <slidebar />
@@ -40,8 +40,10 @@ export default {
           return "マイページ";
         case "hot":
           return "ホットな話題";
+        case "post":
+          return "投稿ページ"
         default:
-          return "";
+          return path;
       }
     }
   }
