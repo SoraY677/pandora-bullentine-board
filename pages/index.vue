@@ -46,8 +46,6 @@ export default {
       .orderBy("timestamp", "desc")
       .limit(20)
       .onSnapshot(res => {
-        console.log(res)
-        content.splice(0)
         res.forEach(doc => {
           let contentLine = doc.data();
           contentLine.id = doc.id;
