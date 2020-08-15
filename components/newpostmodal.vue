@@ -58,7 +58,9 @@ export default {
           reaction_4: 0,
           timestamp: timestamp
         })
-        .then(() => {
+        .then((res) => {
+          //ここでIDを取得し、commentも生成
+          console.log(res.id)
           this.$router.go({
             path: this.$router.currentRoute.path,
             force: true

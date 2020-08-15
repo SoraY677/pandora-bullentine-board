@@ -31,8 +31,8 @@ export default {
     };
   },
   methods: {
-    onReaction(symbol, index) {
-      const ap = firestore
+    async onReaction(symbol, index) {
+      const ap = await firestore
         .collection("content")
         .doc(this.id)
         .get()
@@ -40,9 +40,7 @@ export default {
           const targetName = "reaction_" + index;
           const targetNum = res.data()[targetName];
           const tmp = {};
-          tmp[targetName] = firebase.firestore.FieldValue.increment(
-            targetNum + 1
-          );
+          tmp[targetName] = firebase.firestore.FieldValue.increment(1);
           firestore
             .collection("content")
             .doc(this.id)
