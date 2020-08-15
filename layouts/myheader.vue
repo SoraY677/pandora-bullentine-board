@@ -32,6 +32,8 @@ export default {
           return "マイページ";
         case "hot":
           return "ホットな話題";
+        case "setting":
+          return "設定";
         case "post":
           return "投稿ページ"
         default:
