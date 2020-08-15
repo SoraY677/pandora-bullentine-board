@@ -9,6 +9,9 @@
       rows="6"
       max-rows="6"
     ></b-form-textarea>
+    <b-alert v-model="show" variant="danger" dismissible class="m-2">
+      内容入力は必須です！
+    </b-alert>
     <b-button class="mt-3" block @click="confirm()">確定</b-button>
   </div>
 </template>
@@ -23,42 +26,53 @@ export default {
   },
   data() {
     return {
-      content: ""
+      content: "",
+      show:false
     };
   },
   methods: {
     confirm() {
-      //タイムスタンプの生成
-      const date = new Date();
-      const year = date.getFullYear() * 10000000000;
-      const month = (date.getMonth() + 1) * 100000000;
-      const day = date.getDate() * 1000000;
-      const hour = date.getHours() * 10000;
-      const minutes = date.getMinutes() * 100;
-      const second = date.getSeconds() * 1;
-      const timestamp = year + month + day + hour + minutes + second;
-      const commentstr = this.content
-      //コメントの追加
-      firestore
-        .collection("comment")
-        .where("target", "==", this.targetID)
-        .get()
-        .then(res => {
-          res.forEach(function(document) {
-            firestore.collection("comment").doc(document.id).update({
-              commentlist: firebase.firestore.FieldValue.arrayUnion({
-                str: commentstr,
-                timestamp: timestamp
-              })
+      //入力がちゃんとしていれば
+      if (this.content != "") {
+        //タイムスタンプの生成
+        const date = new Date();
+        const year = date.getFullYear() * 10000000000;
+        const month = (date.getMonth() + 1) * 100000000;
+        const day = date.getDate() * 1000000;
+        const hour = date.getHours() * 10000;
+        const minutes = date.getMinutes() * 100;
+        const second = date.getSeconds() * 1;
+        const timestamp = year + month + day + hour + minutes + second;
+        const commentstr = this.content;
+        //コメントの追加
+        firestore
+          .collection("comment")
+          .where("target", "==", this.targetID)
+          .get()
+          .then(res => {
+            res.forEach(function(document) {
+              firestore
+                .collection("comment")
+                .doc(document.id)
+                .update({
+                  commentlist: firebase.firestore.FieldValue.arrayUnion({
+                    str: commentstr,
+                    timestamp: timestamp
+                  })
+                });
             });
           });
-        });
 
-      //コメント数の増加
-      firestore
-      .collection("content")
-      .doc(this.targetID)
-      .update({comment_num:firebase.firestore.FieldValue.increment(1)})
+        //コメント数の増加
+        firestore
+          .collection("content")
+          .doc(this.targetID)
+          .update({ comment_num: firebase.firestore.FieldValue.increment(1) });
+      }
+      //許さない...
+      else{
+        this.show = true
+      }
     }
   }
 };

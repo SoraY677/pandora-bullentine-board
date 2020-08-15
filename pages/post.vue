@@ -6,7 +6,13 @@
         :content="mainpost[0].content"
         :username="mainpost[0].name"
         :commentnum="mainpost[0].comment_num"
-        :reactionnum="mainpost[0].reaction_0+mainpost[0].reaction_1+mainpost[0].reaction_2+mainpost[0].reaction_3+mainpost[0].reaction_4"
+        :reactionnum="
+          mainpost[0].reaction_0 +
+            mainpost[0].reaction_1 +
+            mainpost[0].reaction_2 +
+            mainpost[0].reaction_3 +
+            mainpost[0].reaction_4
+        "
         :commentmode="1"
       />
       <div class="comment-header-block">
@@ -22,7 +28,7 @@
         <template v-slot:modal-title>
           コメント内容を入力してください
         </template>
-        <modal :targetID="$route.query.id"/>
+        <modal :targetID="$route.query.id" />
       </b-modal>
       <ul v-if="commentList.length != 0">
         <li
@@ -62,29 +68,27 @@ export default {
     db.collection("content")
       .doc(this.$route.query.id)
       .onSnapshot(res => {
-
         let contentLine = res.data();
         contentLine.id = res.id;
         const postcontent = [contentLine];
-        this.mainpost = postcontent
+        this.mainpost = postcontent;
       });
 
     const content = [];
     db.collection("comment")
       .where("target", "==", this.$route.query.id)
-      .get()
-      .then(res => {
+      .onSnapshot(res => {
         res.forEach(document => {
           firestore
             .collection("comment")
             .doc(document.id)
-            .onSnapshot(res => {
+            .onSnapshot(res2 => {
               content.splice(0);
-              const list = res.data()
-              list.commentlist.forEach(res => {
-                let contentLine = res;
-                content.push(contentLine.str);
-              });
+              const commentlist = res2.data().commentlist;
+                commentlist.forEach(res3 => {
+                  let contentLine = res3;
+                  content.push(contentLine.str);
+                });
               this.commentList = content;
             });
         });
