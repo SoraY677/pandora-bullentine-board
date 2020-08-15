@@ -4,7 +4,6 @@
     <div class="content">
     <sidelink class="float-left l-side-link"/>
     <nuxt class="float-left l-main-content"/>
-    <sidenav class="float-right l-side-nav"/>
     </div>
   </div>
 </template>
@@ -12,12 +11,10 @@
 <script>
 import Myheader from "~/layouts/myheader"
 import sidelink from "~/layouts/sidelink"
-import sidenav from "~/layouts/sidenav"
 export default {
   components:{
     Myheader,
     sidelink,
-    sidenav
   }
 }
 </script>
@@ -29,12 +26,9 @@ export default {
 }
 
 .l-main-content{
-  width:60%;
+  width:80%;
 }
 
-.l-side-nav{
-  width:20%;
-}
 
 
 /* common setting */

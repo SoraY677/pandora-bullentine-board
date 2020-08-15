@@ -9,13 +9,17 @@
 
           <div class="px-1 pt-1">
             <!-- リアクション -->
-            <reaction :id="id" @reactionSymbol="changeReaction"/>
-            <span v-if="reactionSymbol!=''" class="reaction-symbol">{{reactionSymbol}}</span>
-            {{reactionnum}}件
+            <reaction :id="id" @reactionSymbol="changeReaction" />
+            <span v-if="reactionSymbol != ''" class="reaction-symbol">{{
+              reactionSymbol
+            }}</span>
+            {{ reactionnum }}件
             <!-- コメント -->
-            <div class="float-right" v-if="commentmode===0">
+            <div class="float-right" v-if="commentmode === 0">
+              <nuxt-link :to="'/post?id=' + id" class="show-comment">
               <span>コメント{{ commentnum }}件</span>
-              <nuxt-link :to="'/post?id='+id" class="show-comment">表示</nuxt-link>
+              </nuxt-link>
+              <b-btn @click="$bvModal.show('new-comment-modal')">コメントする</b-btn>
             </div>
           </div>
         </div>
@@ -33,28 +37,29 @@
 </template>
 
 <script>
-import reaction from "@/components/reaction"
+import reaction from "@/components/reaction";
+
 
 export default {
-  components:{
+  components: {
     reaction
   },
-  data(){
+  data() {
     return {
-      reactionSymbol:""
-    }
+      reactionSymbol: ""
+    };
   },
   props: {
-    id:String,
+    id: String,
     content: String,
     username: String,
     commentnum: Number,
-    commentmode:0,
-    reactionnum:0
+    commentmode: 0,
+    reactionnum: 0
   },
-  methods:{
-    changeReaction(symbol){
-      this.reactionSymbol = symbol
+  methods: {
+    changeReaction(symbol) {
+      this.reactionSymbol = symbol;
     }
   }
 };
@@ -83,16 +88,16 @@ export default {
   float: left;
 }
 
-.reaction-symbol{
-  font-size:1.3em;
+.reaction-symbol {
+  font-size: 1.3em;
 }
 
-.show-comment{
-  color:var(--primary);
-  transition-duration: .3s;
+.show-comment {
+  color: var(--primary);
+  transition-duration: 0.3s;
 }
 
-.show-comment:hover{
-  opacity:0.5;
+.show-comment:hover {
+  opacity: 0.5;
 }
 </style>

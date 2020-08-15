@@ -1,14 +1,6 @@
 <template>
   <div>
     <header class="page p-10">
-      <!-- <b-button v-b-toggle.slide_bar class="slide-bar-btn p-1" squared variant="outline-primary">
-        <div class="menu-bar-container">
-          <span class="menu-bar"></span>
-          <span class="menu-bar"></span>
-          <span class="menu-bar"></span>
-        </div>
-        <span class="menu-sub">menu</span>
-      </b-button> -->
       <h1 class="page-title">{{ getPageName }}</h1>
       <b-sidebar class="slide-bar-container" id="slide_bar" backdrop shadow>
         <slidebar />
@@ -35,7 +27,7 @@ export default {
       const path = this.$route.name;
       switch (path) {
         case "index":
-          return "ホーム";
+          return "最新の話題";
         case "mypage":
           return "マイページ";
         case "hot":

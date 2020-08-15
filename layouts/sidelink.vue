@@ -11,9 +11,11 @@ export default {
   data(){
     return{
       linkList:[
-        {title:"🏡ホーム",url:"/"},
+        {title:"💡最新の話題",url:"/"},
+         {title:"🔥ホットな話題",url:"/hot"},
         {title:"👤マイページ",url:"/mypage"},
-        {title:"🔥ホットな話題",url:"/"},
+        {title:"🚪ログアウト",url:"/top"},
+       
       ]
     }
   }

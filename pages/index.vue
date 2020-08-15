@@ -20,13 +20,24 @@
         </li>
       </ul>
     </div>
+    <div class="l-post-btn">
+      <postbtn />
+    </div>
+    <b-modal id="new-comment-modal" hide-footer>
+      <template v-slot:modal-title>
+        コメント内容を入力してください
+      </template>
+      <commentmodal />
+    </b-modal>
   </main>
 </template>
 
 <script>
 import firestore from "@/plugins/firebase";
 
+import postbtn from "@/components/postbtn";
 import post from "@/components/otherPost";
+import commentmodal from "@/components/newcommentmodal";
 export default {
   async asyncData({ params }) {
     const db = firestore;
@@ -34,9 +45,9 @@ export default {
     db.collection("content")
       .orderBy("timestamp", "desc")
       .limit(20)
-      .get()
-      .then(res => {
+      .onSnapshot(res => {
         res.forEach(doc => {
+
           let contentLine = doc.data();
           contentLine.id = doc.id;
           content.push(contentLine);
@@ -47,7 +58,12 @@ export default {
     };
   },
   components: {
-    post
+    post,
+    postbtn,
+    commentmodal
+  },
+  computed:{
+    
   }
 };
 </script>
@@ -64,8 +80,14 @@ export default {
   width: 100%;
   min-height: 92vh;
   background-color: var(--light);
-  padding: 0.3em 0.3em 0 0.3em;
+  padding: 0.3em 1.3em 0 1.3em;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
+}
+
+.l-post-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }
 </style>
