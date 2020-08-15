@@ -1,3 +1,4 @@
+require("dotenv").config();
 
 export default {
   mode: 'spa',
@@ -40,7 +41,17 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
+    '@nuxtjs/dotenv',
   ],
+  env:{
+    firebase:{
+      apikey:process.env.FIREBASE_APIKEY,
+      pid:process.env.FIREBASE_PROJECTID,
+      msid:process.env.FIREBASE_MSID,
+      appid:process.env.FIREBASE_APPID,
+      mid:process.env.FIREBASE_MEASUREMENTID
+    }
+  },
   /*
   ** Build configuration
   */
