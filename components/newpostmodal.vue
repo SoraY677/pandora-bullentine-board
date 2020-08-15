@@ -45,6 +45,7 @@ export default {
       const minutes = date.getMinutes() * 100;
       const second = date.getSeconds() * 1;
       const timestamp = year + month + day + hour + minutes + second;
+      
       firestore
         .collection("content")
         .add({
@@ -60,7 +61,11 @@ export default {
         })
         .then((res) => {
           //ここでIDを取得し、commentも生成
-          console.log(res.id)
+          firestore.collection("comment")
+          .add({
+            target:res.id,
+            list:[]
+          })
         });
     }
   }

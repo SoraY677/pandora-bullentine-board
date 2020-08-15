@@ -16,6 +16,7 @@
                 item.reaction_3 +
                 item.reaction_4
             "
+            @selectcomment="getID"
           />
         </li>
       </ul>
@@ -27,7 +28,7 @@
       <template v-slot:modal-title>
         コメント内容を入力してください
       </template>
-      <commentmodal />
+      <commentmodal :targetID="targetID"/>
     </b-modal>
   </main>
 </template>
@@ -39,6 +40,11 @@ import postbtn from "@/components/postbtn";
 import post from "@/components/otherPost";
 import commentmodal from "@/components/newcommentmodal";
 export default {
+  data() {
+    return {
+      targetID: ""
+    };
+  },
   async asyncData({ params }) {
     const db = firestore;
     const content = [];
@@ -46,7 +52,7 @@ export default {
       .orderBy("timestamp", "desc")
       .limit(20)
       .onSnapshot(res => {
-        content.splice(0)
+        content.splice(0);
         res.forEach(doc => {
           let contentLine = doc.data();
           contentLine.id = doc.id;
@@ -62,8 +68,10 @@ export default {
     postbtn,
     commentmodal
   },
-  computed:{
-    
+  methods: {
+    getID(id) {
+      this.targetID = id
+    }
   }
 };
 </script>

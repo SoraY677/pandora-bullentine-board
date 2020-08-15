@@ -17,9 +17,9 @@
             <!-- コメント -->
             <div class="float-right" v-if="commentmode === 0">
               <nuxt-link :to="'/post?id=' + id" class="show-comment">
-              <span>コメント{{ commentnum }}件</span>
+              <span>コメント{{ String(commentnum) }}件</span>
               </nuxt-link>
-              <b-btn @click="$bvModal.show('new-comment-modal')">コメントする</b-btn>
+              <b-btn @click="selectpost();">コメントする</b-btn>
             </div>
           </div>
         </div>
@@ -39,7 +39,6 @@
 <script>
 import reaction from "@/components/reaction";
 
-
 export default {
   components: {
     reaction
@@ -53,13 +52,17 @@ export default {
     id: String,
     content: String,
     username: String,
-    commentnum: Number,
+    commentnum: 0,
     commentmode: 0,
     reactionnum: 0
   },
   methods: {
     changeReaction(symbol) {
       this.reactionSymbol = symbol;
+    },
+    selectpost(){
+      this.$emit('selectcomment',this.id)
+      this.$bvModal.show('new-comment-modal');
     }
   }
 };
