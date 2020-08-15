@@ -72,6 +72,8 @@ export default {
               list: []
             });
           });
+
+          this.$emit("confirm")
       }
       else{
         this.show = true

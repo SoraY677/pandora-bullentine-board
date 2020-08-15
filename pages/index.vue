@@ -24,11 +24,11 @@
     <div class="l-post-btn">
       <postbtn />
     </div>
-    <b-modal id="new-comment-modal" hide-footer>
+    <b-modal id="new-comment-modal" hide-footer ref="new-comment-modal">
       <template v-slot:modal-title>
         コメント内容を入力してください
       </template>
-      <commentmodal :targetID="targetID"/>
+      <commentmodal :targetID="targetID" @confirm="hidemodal"/>
     </b-modal>
   </main>
 </template>
@@ -42,7 +42,7 @@ import commentmodal from "@/components/newcommentmodal";
 export default {
   data() {
     return {
-      targetID: ""
+      targetID: "",
     };
   },
   async asyncData({ params }) {
@@ -71,6 +71,9 @@ export default {
   methods: {
     getID(id) {
       this.targetID = id
+    },
+    hidemodal(){
+      this.$refs['new-comment-modal'].hide()
     }
   }
 };

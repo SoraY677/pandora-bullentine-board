@@ -14,6 +14,7 @@ export default {
         {title:"💡最新の話題",url:"/"},
          {title:"🔥ホットな話題",url:"/hot"},
         {title:"👤マイページ",url:"/mypage"},
+        {title:"🔑設定",url:"/setting"},
         {title:"🚪ログアウト",url:"/top"},
        
       ]

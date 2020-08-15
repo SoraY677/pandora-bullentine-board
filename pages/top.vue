@@ -5,7 +5,8 @@
           <ul class="message-box">
             <li class="pb-1">不満の対象や自身を匿名で投稿する。</li>
             <li class="pb-1">不満にリアクションする。</li>
-            <li class="pb-1">自身の投稿に対するリアクションを楽しむ・分析する。</li>
+            <li class="pb-1">自身の投稿に対するリアクションを楽しむ。</li>
+            <li class="pb-1">嫌いな人への不満を分析する。</li>
             <li></li>
           </ul>
           <span class="pt-5 block">ようこそ。パンドラの掲示板へ。</span>
@@ -52,7 +53,7 @@ export default {
 
 .message-box{
   border:2px solid var(--white);
-  padding:0.5em;
+  padding:0.8em;
   border-radius:10px;
   font-size:1.2rem;
 }

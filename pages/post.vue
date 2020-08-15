@@ -24,11 +24,11 @@
           >✐コメントを書き込む</b-btn
         >
       </div>
-      <b-modal id="new-comment-modal" hide-footer>
+      <b-modal id="new-comment-modal" hide-footer ref="modal">
         <template v-slot:modal-title>
           コメント内容を入力してください
         </template>
-        <modal :targetID="$route.query.id" />
+        <modal :targetID="$route.query.id" @confirm="hideModal"/>
       </b-modal>
       <ul v-if="commentList.length != 0">
         <li
@@ -60,6 +60,11 @@ export default {
     post,
     modal,
     comment
+  },
+  methods:{
+    hideModal(){
+      this.$refs["modal"].hide()
+    }
   },
   beforeCreate() {
     //firebaseアクセス

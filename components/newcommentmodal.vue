@@ -68,6 +68,8 @@ export default {
           .collection("content")
           .doc(this.targetID)
           .update({ comment_num: firebase.firestore.FieldValue.increment(1) });
+
+        this.$emit('confirm')
       }
       //許さない...
       else{

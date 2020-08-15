@@ -4,11 +4,11 @@
       <span class="strong-font block rotate-anim">💋</span>
       <span class="block">投稿</span>
     </button>
-    <b-modal id="new-post-modal" hide-footer>
+    <b-modal id="new-post-modal" hide-footer ref="post-modal">
       <template v-slot:modal-title>
         投稿内容を入力してください
       </template>
-      <modal />
+      <modal @confirm="hideModal"/>
     </b-modal>
   </div>
 </template>
@@ -18,6 +18,11 @@ import modal from "@/components/newpostmodal";
 export default {
   components: {
     modal
+  },
+  methods:{
+    hideModal(){
+      this.$refs["post-modal"].hide()
+    }
   }
 };
 </script>
