@@ -3,7 +3,6 @@ import "firebase/firestore";
 
 if (!firebase.apps.length) {
   const config = process.env.firebase;
-  console.log(config)
   firebase.initializeApp({
     apiKey: config.apikey,
     authDomain: config.pid + ".firebaseapp.com",
