@@ -4,10 +4,7 @@
       <span>対象者</span>
       <b-form-select
         v-model="selected"
-        :options="[
-          { value: null, text: '対象者を選択' },
-          { value: '1', text: 'H.N' }
-        ]"
+        :options="options"
       ></b-form-select>
     </div>
     <div class="mb-4">
@@ -37,8 +34,23 @@ export default {
     return {
       content: "",
       selected: null,
-      show:false
+      show:false,
+      options:[]
     };
+  },
+  props:{
+    targetList:Array
+  },
+  mounted(){
+    this.options = []
+    this.options.push({
+       value: null, text: '対象者を選択' 
+    })
+    this.targetList.forEach(res=>{
+      this.options.push({
+        value:res.id,text:res.name
+      })
+    })
   },
   methods: {
     confirm() {
@@ -63,7 +75,8 @@ export default {
             reaction_2: 0,
             reaction_3: 0,
             reaction_4: 0,
-            timestamp: timestamp
+            timestamp: timestamp,
+            target:this.selected
           })
           .then(res => {
             //ここでIDを取得し、commentも生成

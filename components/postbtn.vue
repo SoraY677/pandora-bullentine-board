@@ -8,7 +8,7 @@
       <template v-slot:modal-title>
         投稿内容を入力してください
       </template>
-      <modal @confirm="hideModal"/>
+      <modal @confirm="hideModal" :targetList="targetLists" v-if="targetLists.length != 0"/>
     </b-modal>
   </div>
 </template>
@@ -16,6 +16,9 @@
 <script>
 import modal from "@/components/newpostmodal";
 export default {
+  props:{
+    targetLists:Array
+  },
   components: {
     modal
   },

@@ -21,14 +21,14 @@
         </li>
       </ul>
     </div>
-    <div class="l-post-btn">
-      <postbtn />
+    <div class="l-post-btn" v-if="targetList.length != 0">
+      <postbtn :targetLists="targetList" />
     </div>
     <b-modal id="new-comment-modal" hide-footer ref="new-comment-modal">
       <template v-slot:modal-title>
         コメント内容を入力してください
       </template>
-      <commentmodal :targetID="targetID" @confirm="hidemodal"/>
+      <commentmodal :targetID="targetID" @confirm="hidemodal" />
     </b-modal>
   </main>
 </template>
@@ -42,13 +42,13 @@ import commentmodal from "@/components/newcommentmodal";
 export default {
   data() {
     return {
-      targetID: "",
+      targetID: ""
     };
   },
   async asyncData({ params }) {
-    const db = firestore;
     const content = [];
-    db.collection("content")
+    firestore
+      .collection("content")
       .orderBy("timestamp", "desc")
       .limit(20)
       .onSnapshot(res => {
@@ -59,8 +59,23 @@ export default {
           content.push(contentLine);
         });
       });
+    const targetNameList = [];
+    firestore
+      .collection("target")
+      .where("userid", "==", "0")
+      .onSnapshot(res => {
+        targetNameList.splice(0); //配列初期化
+        res.forEach(doc => {
+          const targetInfo = {
+            name: doc.data().name,
+            id: doc.id
+          };
+          targetNameList.push(targetInfo);
+        });
+      });
     return {
-      contentList: content
+      contentList: content,
+      targetList: targetNameList
     };
   },
   components: {
@@ -70,10 +85,10 @@ export default {
   },
   methods: {
     getID(id) {
-      this.targetID = id
+      this.targetID = id;
     },
-    hidemodal(){
-      this.$refs['new-comment-modal'].hide()
+    hidemodal() {
+      this.$refs["new-comment-modal"].hide();
     }
   }
 };

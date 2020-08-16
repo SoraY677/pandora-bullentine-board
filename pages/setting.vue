@@ -113,7 +113,6 @@ export default {
           const targetName = doc.data().name;
           targetNameList.push(targetName);
         });
-        console.log(targetNameList);
       });
     return {
       targetList: targetNameList

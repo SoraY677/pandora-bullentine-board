@@ -6,8 +6,6 @@
       <span class="strong-font ml-2">{{ username }}</span>
     </div>
 
-    
-
     <div class="divide-line"></div>
     <div class="text-center py-4">
       <!-- 投稿合計 -->
