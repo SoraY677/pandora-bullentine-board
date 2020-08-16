@@ -119,29 +119,29 @@ export default {
     this.targetList = targetNameList;
   },
 
-  // async asyncData({ param }) {
-  //   const targetNameList = [];
-  //   firestore
-  //     .collection("target")
-  //     .where("userid", "==", "0")
-  //     .onSnapshot(res => {
-  //       targetNameList.splice(0); //配列初期化
-  //       res.forEach(doc => {
-  //         const targetName = doc.data().name;
-  //         targetNameList.push(targetName);
-  //       });
-  //     });
-  //   return {
-  //     targetList: targetNameList
-  //   };
-  // },
+  async asyncData({ param }) {
+    const targetNameList = [];
+    firestore
+      .collection("target")
+      .where("userid", "==", "0")
+      .onSnapshot(res => {
+        targetNameList.splice(0); //配列初期化
+        res.forEach(doc => {
+          const targetName = doc.data().name;
+          targetNameList.push(targetName);
+        });
+      });
+    return {
+      targetList: targetNameList
+    };
+  },
   methods: {
     addNewTarget() {
       if (this.targetHead != "" && this.targetTail != "") {
         this.addTargetAlert = false;
         const name = this.targetHead + "." + this.targetTail;
         firestore.collection("target").add({
-          userid: this.$store.state.id,
+          userid: 0,
           name: name
         });
         this.targetHead = "";
