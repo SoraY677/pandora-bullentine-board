@@ -50,7 +50,6 @@ export default {
     firestore
       .collection("content")
       .orderBy("timestamp", "desc")
-      .limit(20)
       .onSnapshot(res => {
         content.splice(0);
         res.forEach(doc => {
