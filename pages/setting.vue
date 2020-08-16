@@ -72,7 +72,7 @@ export default {
       targetTail: "",
       addTargetAlert: false,
       alphabetList: [
-        {value:"",text:"英単語を選択"},
+        { value: "", text: "英単語を選択" },
         { value: "A", text: "A" },
         { value: "B", text: "B" },
         { value: "C", text: "C" },
@@ -99,14 +99,15 @@ export default {
         { value: "X", text: "X" },
         { value: "Y", text: "Y" },
         { value: "Z", text: "Z" }
-      ]
+      ],
+      targetList:[]
     };
   },
-  async asyncData({ param }) {
+  mounted() {
     const targetNameList = [];
     firestore
       .collection("target")
-      .where("userid", "==", "0")
+      .where("userid", "==", this.$store.state.id)
       .onSnapshot(res => {
         targetNameList.splice(0); //配列初期化
         res.forEach(doc => {
@@ -114,19 +115,35 @@ export default {
           targetNameList.push(targetName);
         });
       });
-    return {
-      targetList: targetNameList
-    };
+
+    this.targetList = targetNameList;
   },
+
+  // async asyncData({ param }) {
+  //   const targetNameList = [];
+  //   firestore
+  //     .collection("target")
+  //     .where("userid", "==", "0")
+  //     .onSnapshot(res => {
+  //       targetNameList.splice(0); //配列初期化
+  //       res.forEach(doc => {
+  //         const targetName = doc.data().name;
+  //         targetNameList.push(targetName);
+  //       });
+  //     });
+  //   return {
+  //     targetList: targetNameList
+  //   };
+  // },
   methods: {
     addNewTarget() {
       if (this.targetHead != "" && this.targetTail != "") {
         this.addTargetAlert = false;
-        const name = this.targetHead + "." + this.targetTail
+        const name = this.targetHead + "." + this.targetTail;
         firestore.collection("target").add({
-          userid:"0",
-          name:name
-        })
+          userid: this.$store.state.id,
+          name: name
+        });
         this.targetHead = "";
         this.targetTail = "";
       } else {
