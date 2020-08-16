@@ -53,76 +53,108 @@ export default {
   },
   methods: {
     confirm() {
+
       if (this.content != "") {
+      const date = new Date();
+      const year = date.getFullYear() * 10000000000;
+      const month = (date.getMonth() + 1) * 100000000;
+      const day = date.getDate() * 1000000;
+      const hour = date.getHours() * 10000;
+      const minutes = date.getMinutes() * 100;
+      const second = date.getSeconds() * 1;
+      const timestamp = year + month + day + hour + minutes + second;
+      
+        firestore
+          .collection("content")
+          .add({
+            comment_num: 0,
+            content: this.content,
+            name: "T.U",
+            reaction_0: 0,
+            reaction_1: 0,
+            reaction_2: 0,
+            reaction_3: 0,
+            reaction_4: 0,
+            timestamp: timestamp,
+            target: this.selected
+          })
+          .then(res => {
+            //ここでIDを取得し、commentも生成
+            firestore.collection("comment").add({
+              target: res.id,
+              list: []
+            });
+            this.$emit("confirm");
+          });
         /*COTOHAAPIアクセスし、 */
         //アクセストークンの取得
-        this.$axios
-          .$post(
-            "https://api.ce-cotoha.com/v1/oauth/accesstokens",
-            {
-              grantType: "client_credentials",
-              clientId: process.env.cotoha.id,
-              clientSecret: process.env.cotoha.secret
-            },
-            {
-              header: { "Content-Type": "application/json" }
-            }
-          )
-          //取れたら
-          .then(res => {
-            const wheader = {
-              "Content-Type": "application/json;charset=UTF-8",
-              Authorization: "Bearer " + res.access_token
-            };
+        // this.$axios
+        //   .$post(
+        //     "https://api.ce-cotoha.com/v1/oauth/accesstokens",
+        //     {
+        //       grantType: "client_credentials",
+        //       clientId: process.env.cotoha.id,
+        //       clientSecret: process.env.cotoha.secret
+        //     },
+        //     {
+        //       header: { "Content-Type": "application/json" }
+        //     }
+        //   )
+        //   //取れたら
+        //   .then(res => {
+        //     const wheader = {
+        //       "Content-Type": "application/json;charset=UTF-8",
+        //       Authorization: "Bearer " + res.access_token
+        //     };
 
-            this.$axios
-              .$post(
-                "https://api.ce-cotoha.com/api/dev/nlp/v1/sentiment",
-                { sentence: this.content },
-                { headers: wheader }
-              )
-              .then(res => {
-                const date = new Date();
-                const year = date.getFullYear() * 10000000000;
-                const month = (date.getMonth() + 1) * 100000000;
-                const day = date.getDate() * 1000000;
-                const hour = date.getHours() * 10000;
-                const minutes = date.getMinutes() * 100;
-                const second = date.getSeconds() * 1;
-                const timestamp = year + month + day + hour + minutes + second;
+        //     this.$axios
+        //       .$post(
+        //         "https://api.ce-cotoha.com/api/dev/nlp/v1/sentiment",
+        //         { sentence: this.content },
+        //         { headers: wheader }
+        //       )
+        //       .then(res => {
+        //         const date = new Date();
+        //         const year = date.getFullYear() * 10000000000;
+        //         const month = (date.getMonth() + 1) * 100000000;
+        //         const day = date.getDate() * 1000000;
+        //         const hour = date.getHours() * 10000;
+        //         const minutes = date.getMinutes() * 100;
+        //         const second = date.getSeconds() * 1;
+        //         const timestamp = year + month + day + hour + minutes + second;
 
-                let negativeflag = false
-                const apiresult = res.result;
+        //         let negativeflag = false
+        //         const apiresult = res.result;
 
-                if(apiresult.sentiment == "Negative" && apiresult.score > 0.5)
-                  negativeflag = true
+        //         if(apiresult.sentiment == "Negative" && apiresult.score > 0.5)
+        //           negativeflag = true
 
-                firestore
-                  .collection("content")
-                  .add({
-                    comment_num: 0,
-                    content: this.content,
-                    name: "T.U",
-                    reaction_0: 0,
-                    reaction_1: 0,
-                    reaction_2: 0,
-                    reaction_3: 0,
-                    reaction_4: 0,
-                    timestamp: timestamp,
-                    target: this.selected,
-                    isnegative: negativeflag
-                  })
-                  .then(res => {
-                    //ここでIDを取得し、commentも生成
-                    firestore.collection("comment").add({
-                      target: res.id,
-                      list: []
-                    });
-                  });
+        //         firestore
+        //           .collection("content")
+        //           .add({
+        //             comment_num: 0,
+        //             content: this.content,
+        //             name: "T.U",
+        //             reaction_0: 0,
+        //             reaction_1: 0,
+        //             reaction_2: 0,
+        //             reaction_3: 0,
+        //             reaction_4: 0,
+        //             timestamp: timestamp,
+        //             target: this.selected,
+        //             isnegative: negativeflag
+        //           })
+        //           .then(res => {
+        //             //ここでIDを取得し、commentも生成
+        //             firestore.collection("comment").add({
+        //               target: res.id,
+        //               list: []
+        //             });
+        //           });
 
-                this.$emit("confirm");
-              });
-          });
+        //         this.$emit("confirm");
+        //       });
+        //   });
       } else {
         this.show = true;
       }
