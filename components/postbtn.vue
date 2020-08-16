@@ -31,15 +31,6 @@ export default {
 </script>
 
 <style scoped>
-.nav-content {
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 20px;
-  border-radius: 20px;
-}
-
 .nav-btn {
   width: 8rem;
   height: 8rem;

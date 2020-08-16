@@ -102,6 +102,7 @@ export default {
 }
 
 .post-content {
+  position: relative;;
   float: right;
   width: 100%;
   min-height: 92vh;
@@ -113,6 +114,7 @@ export default {
 
 .l-post-btn {
   position: absolute;
+  z-index:20;
   bottom: 20px;
   left: 20px;
 }

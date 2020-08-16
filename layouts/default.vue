@@ -102,6 +102,8 @@ a,a:hover{
   display:block;
 }
 
-
+.modal-open {
+    padding-right: 0px !important;
+}
 
 </style>

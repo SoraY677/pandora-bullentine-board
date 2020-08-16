@@ -17,7 +17,7 @@ import firestore from "@/plugins/firebase";
 
 export default {
   props: {
-    id: String
+    id: String,
   },
   data() {
     return {
@@ -27,26 +27,69 @@ export default {
         { str: "うわっ", symbol: "😅" },
         { str: "やばすぎ！", symbol: "😱" },
         { str: "ｱｪｰ", symbol: "🤪" }
-      ]
+      ],
+      prevReaction: -1,
+      commentID:"",
     };
+  },
+  mounted() {
+    // リアクション取得
+    firestore
+      .collection("reaction")
+      .where("userid", "==", "0")
+      .where("commentid", "==", this.id)
+      .onSnapshot(res => {
+        //リアクションがあれば
+        if (!res.empty) {
+          res.forEach(doc => {
+            const num = doc.data().num;
+            this.prevReaction = num;
+            this.$emit("reactionSymbol", this.reactionList[num].symbol);
+            this.commentID = doc.id
+          });
+        }
+      });
   },
   methods: {
     async onReaction(symbol, index) {
-      const ap = await firestore
-        .collection("content")
-        .doc(this.id)
-        .get()
-        .then(res => {
-          const targetName = "reaction_" + index;
-          const targetNum = res.data()[targetName];
-          const tmp = {};
-          tmp[targetName] = firebase.firestore.FieldValue.increment(1);
-          firestore
-            .collection("content")
-            .doc(this.id)
-            .update(tmp);
-        });
-      this.$emit("reactionSymbol", symbol);
+      if (this.prevReaction != index) {
+        const ap = await firestore
+          .collection("content")
+          .doc(this.id)
+          .get()
+          .then(res => {
+            //今選択されたリアクションを+1
+            const targetName = "reaction_" + index;
+            const tmp = {};
+            tmp[targetName] = firebase.firestore.FieldValue.increment(1);
+            firestore
+              .collection("content")
+              .doc(this.id)
+              .update(tmp);
+
+            //一つ前のリアクションが新しいばあいに前のリアクションを変更
+            if (this.prevReaction != -1) {
+              //リアクション-1
+              const prevTargetName = "reaction_" + this.prevReaction;
+              const prevtmp = {};
+              prevtmp[prevTargetName] = firebase.firestore.FieldValue.increment(
+                -1
+              );
+              firestore
+                .collection("content")
+                .doc(this.id)
+                .update(prevtmp);
+              this.prevReaction = index;
+
+              // //リアクションを更新
+              firestore
+                .collection("reaction")
+                .doc(this.commentID)
+                .update({num:index})
+            }
+          });
+        this.$emit("reactionSymbol", symbol);
+      }
     }
   }
 };

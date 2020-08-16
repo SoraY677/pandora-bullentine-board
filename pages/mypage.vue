@@ -5,7 +5,7 @@
         <postsum :sum="contentList[0].postsum" />
       </div>
       <ul class="mypost-container mx-auto" v-if="contentList[0].targetList.length != 0">
-        <li v-for="content in contentList[0].targetList" :key="content.id">
+        <li v-for="content in contentList[0].targetList" :key="content.id" class="pt-5">
           <mypost
             :username="content.name"
             :postnum="content.postnum"

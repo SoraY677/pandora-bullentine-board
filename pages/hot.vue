@@ -1,10 +1,16 @@
 <template>
-  
+  <main>
+    <construct />
+  </main>
 </template>
 
 <script>
-export default {
+import construct from "@/components/underconstruct"
 
+export default {
+  components:{
+    construct
+  }
 }
 </script>
 
