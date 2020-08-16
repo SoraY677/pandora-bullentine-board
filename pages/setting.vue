@@ -141,7 +141,7 @@ export default {
         this.addTargetAlert = false;
         const name = this.targetHead + "." + this.targetTail;
         firestore.collection("target").add({
-          userid: 0,
+          userid: "0",
           name: name
         });
         this.targetHead = "";
