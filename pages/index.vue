@@ -21,7 +21,7 @@
         </li>
       </ul>
     </div>
-    <div class="l-post-btn" v-if="targetList.length != 0">
+    <div class="l-post-btn">
       <postbtn :targetLists="targetList" />
     </div>
     <b-modal id="new-comment-modal" hide-footer ref="new-comment-modal">
