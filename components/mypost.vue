@@ -1,6 +1,5 @@
 <template>
   <b-card>
-    
     <!-- ユーザ名 -->
     <div class="text-center flex-center">
       <b-avatar></b-avatar>

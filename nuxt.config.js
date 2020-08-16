@@ -42,6 +42,7 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     '@nuxtjs/dotenv',
+    "@nuxtjs/axios"
   ],
   env:{
     firebase:{
@@ -50,6 +51,10 @@ export default {
       msid:process.env.FIREBASE_MSID,
       appid:process.env.FIREBASE_APPID,
       mid:process.env.FIREBASE_MEASUREMENTID
+    },
+    cotoha:{
+      id:process.env.COTOHA_CLIENT_ID,
+      secret:process.env.COTOHA_CLIENT_SECRET
     }
   },
   /*
