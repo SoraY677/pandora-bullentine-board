@@ -103,21 +103,21 @@ export default {
       targetList:[]
     };
   },
-  mounted() {
-    const targetNameList = [];
-    firestore
-      .collection("target")
-      .where("userid", "==", this.$store.state.id)
-      .onSnapshot(res => {
-        targetNameList.splice(0); //配列初期化
-        res.forEach(doc => {
-          const targetName = doc.data().name;
-          targetNameList.push(targetName);
-        });
-      });
+  // mounted() {
+  //   const targetNameList = [];
+  //   firestore
+  //     .collection("target")
+  //     .where("userid", "==", this.$store.state.id)
+  //     .onSnapshot(res => {
+  //       targetNameList.splice(0); //配列初期化
+  //       res.forEach(doc => {
+  //         const targetName = doc.data().name;
+  //         targetNameList.push(targetName);
+  //       });
+  //     });
 
-    this.targetList = targetNameList;
-  },
+  //   this.targetList = targetNameList;
+  // },
 
   async asyncData({ param }) {
     const targetNameList = [];
