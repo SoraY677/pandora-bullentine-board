@@ -1,7 +1,7 @@
 <template>
   <main class="p-5">
     <b-card class="px-3">
-      <span class="sub-title">登録者情報</span>
+      <span class="sub-title">利用者情報</span>
       <div class="pl-5 pt-3 overflow-hidden">
         <div class="float-left">
           <b-avatar size="10rem"></b-avatar>
@@ -18,10 +18,14 @@
         </div>
       </div>
     </b-card>
-    <b-card class="px-3 mt-3">
+    <b-card class="px-3 mt-3" v-if="targetList.length != 0">
       <span class="sub-title">登録対象者リスト</span>
       <b-list-group class="mt-2">
-        <b-list-group-item>H.N</b-list-group-item>
+        <b-list-group-item
+          v-for="targetName in targetList"
+          :key="targetName.id"
+          >{{ targetName }}</b-list-group-item
+        >
       </b-list-group>
 
       <div class="mt-5 pm-2">
@@ -38,6 +42,14 @@
             class="w-50 float-left"
           ></b-form-select>
         </div>
+        <b-alert
+          v-model="addTargetAlert"
+          variant="danger"
+          dismissible
+          class="m-2"
+        >
+          内容入力は必須です！
+        </b-alert>
         <b-btn
           block
           class="block mt-2"
@@ -46,15 +58,13 @@
           >登録</b-btn
         >
       </div>
-
-      <b-alert v-model="addTargetAlert" variant="danger" dismissible class="m-2">
-        内容入力は必須です！
-      </b-alert>
     </b-card>
   </main>
 </template>
 
 <script>
+import firestore from "@/plugins/firebase";
+
 export default {
   data() {
     return {
@@ -91,10 +101,32 @@ export default {
       ]
     };
   },
+  async asyncData({ param }) {
+    const targetNameList = [];
+    firestore
+      .collection("target")
+      .where("userid", "==", "0")
+      .onSnapshot(res => {
+        targetNameList.splice(0); //配列初期化
+        res.forEach(doc => {
+          const targetName = doc.data().name;
+          targetNameList.push(targetName);
+        });
+        console.log(targetNameList);
+      });
+    return {
+      targetList: targetNameList
+    };
+  },
   methods: {
     addNewTarget() {
       if (this.targetHead != "" && this.targetTail != "") {
         this.addTargetAlert = false;
+        const name = this.targetHead + "." + this.targetTail
+        firestore.collection("target").add({
+          userid:"0",
+          name:name
+        })
       } else {
         this.addTargetAlert = true;
       }
