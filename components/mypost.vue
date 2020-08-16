@@ -1,5 +1,6 @@
 <template>
   <b-card>
+    
     <!-- ユーザ名 -->
     <div class="text-center flex-center">
       <b-avatar></b-avatar>
@@ -25,70 +26,84 @@
 </template>
 
 <script>
-require("chart.js")
+require("chart.js");
 
 export default {
   props: {
     postnum: Number,
     username: String,
-    percentage:Array
+    percentage: Array
   },
-  mounted() {
-    const ctx = this.$refs.myChart.getContext("2d");
-    
-    let array = this.percentage
-    let sum = 0 
-    array.forEach(val=>{
-      sum += val
-    })
-    if(sum == 0)array = [0,0,0,0,0,1]
+  methods: {
+    drawGraph() {
+      const ctx = this.$refs.myChart.getContext("2d");
 
-    const chart = new Chart(ctx, {
-      // The type of chart we want to create
-      type: "doughnut",
+      let array = this.percentage;
+      let sum = 0;
+      array.forEach(val => {
+        sum += val;
+      });
+      if (sum == 0) array = [0, 0, 0, 0, 0, 1];
 
-      // The data for our dataset
-      data: {
-        labels: [
-          "🤨うーん？",
-          "🤤わかる",
-          "😅うわっ",
-          "😱やばすぎ！",
-          "🤪ｱｪｰ",
-          "データなし"
-        ],
-        datasets: [
-          {
+      const chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: "doughnut",
 
-            backgroundColor: ["rgb(51, 68, 222)","rgb(51, 214, 184)","rgb(209, 204, 48)","rgb(227, 87, 36)","rgb(220, 53, 69)","rgb(180,180,180)"],
-            data: array
-          }
-        ]
-      },
+        // The data for our dataset
+        data: {
+          labels: [
+            "🤨うーん？",
+            "🤤わかる",
+            "😅うわっ",
+            "😱やばすぎ！",
+            "🤪ｱｪｰ",
+            "データなし"
+          ],
+          datasets: [
+            {
+              backgroundColor: [
+                "rgb(51, 68, 222)",
+                "rgb(51, 214, 184)",
+                "rgb(209, 204, 48)",
+                "rgb(227, 87, 36)",
+                "rgb(220, 53, 69)",
+                "rgb(180,180,180)"
+              ],
+              data: array
+            }
+          ]
+        },
 
-      // Configuration options go here
-      options: {
-        legend: {
+        // Configuration options go here
+        options: {
+          legend: {
             display: false
-         }
-      }
-    });
+          }
+        }
+      });
+    }
+  },
+  mounted(){
+   this.drawGraph()
+  },
+  updated() {
+    this.drawGraph()
   }
 };
 </script>
 
 <style scoped>
-.about-title{
-  width:fit-content;
-  padding:5px 8px;
-  margin:0 auto;
-  font-size:1em;
-  color:#888;
-  border:1px solid #888;
+.about-title {
+  width: fit-content;
+  padding: 5px 8px;
+  margin: 0 auto;
+  font-size: 1em;
+  color: #888;
+  border: 1px solid #888;
   border-radius: 5px;
 }
 
 .strong-font {
-  font-size:2em;
+  font-size: 2em;
 }
 </style>
