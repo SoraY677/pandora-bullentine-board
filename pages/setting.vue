@@ -72,6 +72,7 @@ export default {
       targetTail: "",
       addTargetAlert: false,
       alphabetList: [
+        {value:"",text:"英単語を選択"},
         { value: "A", text: "A" },
         { value: "B", text: "B" },
         { value: "C", text: "C" },
@@ -127,6 +128,8 @@ export default {
           userid:"0",
           name:name
         })
+        this.targetHead = "";
+        this.targetTail = "";
       } else {
         this.addTargetAlert = true;
       }
